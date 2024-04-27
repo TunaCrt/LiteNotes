@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Note;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NoteController extends Controller
 {
@@ -20,6 +22,7 @@ class NoteController extends Controller
     public function create()
     {
         //
+        return view('front.notes.create');
     }
 
     /**
@@ -27,7 +30,16 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request->all()) die and dump
+        //dd($request->all());
+        //dd($request->not_baslik);
+        //dd(Auth::user()->id);
+
+        $note = new Note();
+        $note -> user_id = Auth::user()->id;
+        $note -> title = $request->title;
+        $note -> content = $request->content;
+        $note->save();
     }
 
     /**

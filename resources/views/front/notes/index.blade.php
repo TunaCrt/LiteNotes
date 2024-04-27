@@ -2,5 +2,5 @@
 
 @section('content')
     <h1>Hello, world!</h1>
-    <button class="btn btn-success">Not Oluştur</button>
+    <a href="{{route('notes_create')}}" class="btn btn-success">Not Oluştur</a>
 @endsection

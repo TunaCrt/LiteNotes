@@ -7,6 +7,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/notes',[NoteController::class, 'index'])->name('notes_index');
+Route::get('/notes/create',[NoteController::class, 'create'])->name('notes_create');//create
+Route::post('/notes/addNote',[NoteController::class, 'store'])->name('notes_addNote');//store
 
 
 //jetstream
@@ -23,12 +25,6 @@ Route::middleware([
     Route::get("/deneme",function (){
         return 5;
     });
+
 });
-
-//Test routeları başlangıç
-
-    Route::get('/mastertest',function (){
-        return view('front.layouts.master');
-    });
-//Test routeları bitiş
 
