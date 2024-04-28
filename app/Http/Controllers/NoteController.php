@@ -35,11 +35,36 @@ class NoteController extends Controller
         //dd($request->not_baslik);
         //dd(Auth::user()->id);
 
+        //validation doğrulama
+        //validate sağlanmazsa laravel errors gönderir return redirect()->route('notes_index')->with('errors','message');
+        $request->validate(
+            [
+                //doğrulamak istediğim key => kurallarım
+                //'title' => 'zorunlu minimum 3 karakter'
+                'title' => 'required | min:13 | max:30 ',
+                'content' => 'required',
+
+            ],
+            [//custom mesajlar    keyadi.kuraladi -> 'message'
+                'title.required' => 'Başlık Yazmayı Unutmayın',
+                'title.min' => 'Daha uzun Yaz!!',
+                'content' => 'içerik kısmını boş bırakmayınız'
+            ]
+        );
+
         $note = new Note();
         $note -> user_id = Auth::user()->id;
         $note -> title = $request->title;
         $note -> content = $request->content;
         $note->save();
+
+
+
+        //return redirect()->back();
+        //başarılı durumda
+        return redirect()->route('notes_index')->with('success','Başarıyla kaydedildi');//return json kullanılır
+
+
     }
 
     /**
