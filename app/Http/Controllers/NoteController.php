@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Note;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,7 +15,17 @@ class NoteController extends Controller
     public function index()
     {
         //$loggedInName = Auth::user()->name();
-        return view('front.notes.index',/*compact('loggedInName')*/);
+
+        //$notes = note::get(); hepsini getirir
+        //$notes = note::where('veritabanındaki sutün(id)','operatör(==)','aramak istediğim değer(5)')->get();
+        //$notes = Note::orderBy("id")->get();
+
+        //$user = User::where('id',2)->first();
+        //$notlar = Note::where('user_id',$user->id)->get();  userda getnote fonksiyonu oluşturduğumuz için bu satıra gerek yok
+
+        $notes = note::where('user_id',Auth::user()->id)->latest('updated_at')->paginate(2);//latest default olarak ceated_at tarihini alır
+        //$notes = Auth::user()->getNotes;
+        return view('front.notes.index',compact('notes'),/*compact('loggedInName')*/);
     }
 
     /**
@@ -42,7 +53,7 @@ class NoteController extends Controller
             [
                 //doğrulamak istediğim key => kurallarım
                 //'title' => 'zorunlu minimum 3 karakter'
-                'title' => 'required | min:13 | max:30 ',
+                'title' => 'required | min:5 | max:30 ',
                 'content' => 'required',
 
             ],

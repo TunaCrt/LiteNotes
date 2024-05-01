@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/notes',[NoteController::class, 'index'])->name('notes_index');
-Route::get('/notes/create',[NoteController::class, 'create'])->name('notes_create');//create
-Route::post('/notes/addNote',[NoteController::class, 'store'])->name('notes_addNote');//store
+
 
 
 //jetstream
@@ -26,6 +24,12 @@ Route::middleware([
     Route::get("/deneme",function (){
         return 5;
     });
+
+
+
+    Route::get('/notes',[NoteController::class, 'index'])->name('notes_index');
+    Route::get('/notes/create',[NoteController::class, 'create'])->name('notes_create');//create
+    Route::post('/notes/addNote',[NoteController::class, 'store'])->name('notes_addNote');//store
 
 });
 
